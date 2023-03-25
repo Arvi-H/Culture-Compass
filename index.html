@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Cultural Compass</title>
+</head>
+<body>
+    <div class="container" id="landing-page">
+        <div id="landing-page__overlay"></div>
+        <div id="landing-page__center-info">
+            <h1 id="home-page_welcome-text">Unlock the hidden treasures of your cultural identity</h1>
+            <button id="getLocationBtn">Explore</button>
+        </div>
+        
+    </div>
+
+    <script>
+        const getLocationBtn = document.getElementById('getLocationBtn');
+
+        getLocationBtn.addEventListener('click', () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendLocationToBackend);
+        } else {
+            alert('Geolocation is not supported by your browser');
+        }
+        });
+
+    function sendLocationToBackend(position) {
+        const { latitude, longitude } = position.coords;
+        const location = { latitude, longitude };
+        
+        fetch('/api/location', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(location),
+        })
+
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+}
+    </script>
+</body>
+</html>
