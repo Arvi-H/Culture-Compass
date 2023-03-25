@@ -1,15 +1,16 @@
 const axios = require('axios')
 const express = require('express');
-var cors = require('cors')
-const bodyParser = require('body-parser');
-const exp = require('constants');
+const cors = require('cors');
+const path = require('path');
+
 
 // variables
 let loc = {lat: 0, long: 0}
 const app = express();
-app.use(bodyParser.json());
-app.use(express.static('public'))
+app.use(express.json());
+app.use(cors());
 
+app.use("/", express.static('public'));
 
 app.post('/api/location', (req, res) => {
     const { latitude, longitude } = req.body;
@@ -19,13 +20,6 @@ app.post('/api/location', (req, res) => {
     loc.long = longitude
     res.json({ message: 'Location received' });
 });
-
-app.get('/', (req, res) => {
-    // find the path to file
-    // send the file
-    res.send()
-});
-console.log(loc)
 
 const getRestaurants = async () => {
     let restaurants = {
