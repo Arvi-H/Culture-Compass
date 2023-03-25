@@ -31,8 +31,8 @@
     function sendLocationToBackend(position) {
         const { latitude, longitude } = position.coords;
         const location = { latitude, longitude };
-        
-        fetch('/api/location', {
+        // debugger;
+        fetch('https://localhost:3000/api/location', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
