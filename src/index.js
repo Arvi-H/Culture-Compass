@@ -21,7 +21,7 @@ app.post('/api/location', (req, res) => {
     res.json({ message: 'Location received' });
 });
 
-const getRestaurants = async () => {
+const setRestaurants = async () => {
     let restaurants = {
         url: `https://api.yelp.com/v3/businesses/search?latitude=${loc.lat}&longitude=${loc.long}`,
         method: 'GET',
@@ -31,6 +31,14 @@ const getRestaurants = async () => {
     }
     return restaurants
 }
+
+const getRestaurant = async () => {
+    const o = await setRestaurants()
+    const res = await axios(o)
+    return res
+}
+
+console.log(getRestaurant())
 
 app.listen(3000, () => console.log('Server started on port 3000'));
 
